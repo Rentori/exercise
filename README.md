@@ -1,4 +1,4 @@
-Описание проекта
+                                                       ОПИСАНИЕ ПРОЕКТА
 
 Дается проект сгенерирован на https://start.spring.io/ с заданной конфигурацией.
 
@@ -30,3 +30,81 @@
 - Логирование через logback
 - Аргументированный подход по созданию архитектуры проекта
 - Дополнительные запросы и функционал
+
+                                                     АРХИТЕКТУРА СЕРВИСА
+                                                      
+Все эндпойнты, за исключением /api/v1/auth/ доступны только авторизированным пользователям. Когда пользователь обращается к /api/v1/data/orders(POST) для создания заказа, создаётся имя клиента на основании jwt токена текущего пользователя, после чего создаётся заказ с указанной суммой. Имя клиента для пользователя может быть только одно, которое можно изменить по эндпойнту /api/v1/update/clients(POST). Заказов у клиента может быть множество, которые также можно изменить.
+
+
+                                                      REST API ENDPOINTS
+                                                      
+         
+         
+  AUTHENTICATION ENDPOINTS(/api/v1/auth/)
+  
+  - /api/v1/auth/login:
+  
+        {
+        "username":"",
+        "password":""
+        }
+        
+  - /api/v1/auth/signUp:
+  
+        {
+        "username":"",
+        "password":"",
+        "email":""
+        }
+        
+  - /api/v1/auth/logout
+
+
+
+DATA ENDPOINTS(/api/v1/data/)
+
+- /api/v1/data/orders(POST):
+
+        {
+         "price": ,
+         "name": ""
+        }
+
+- /api/v1/data/orders(GET):
+ 
+- /api/v1/data/users(GET):
+
+- /api/v1/data/orders/clients/{id}(GET):
+ 
+- /api/v1/data/clients/{id}(GET):
+        
+- /api/v1/data/clients(GET):
+
+
+
+UPDATE ENDPOINTS(/api/v1/update/)
+                                                  
+- /api/v1/update/clients(POST):
+
+        {
+         "name": ""
+        }
+
+- /api/v1/update/orders(POST):
+
+        {
+         "id": ,
+         "price": 
+        }
+        
+- /api/v1/update/users/username(POST):
+
+        {
+         "username": ""
+        }
+        
+- /api/v1/update/users/email(POST):
+
+        {
+         "email": ""
+        }
