@@ -48,6 +48,8 @@ public class UpdateRestControllerV1 {
     @PostMapping("orders")
     public ResponseEntity<OrderDto> updateOrderPriceById(@RequestBody OrderDto orderDto) {
         Order order = orderService.getById(orderDto.getId());
+        order.setPrice(orderDto.getPrice());
+
         if(order == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

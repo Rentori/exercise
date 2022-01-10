@@ -78,6 +78,10 @@ public class DataRestControllerV1 {
         Client client = user.getClient();
         Set<OrderDto> orders = new HashSet<>();
 
+        if (client == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         client.getOrders().forEach(order -> {
             OrderDto orderDto = OrderDto.fromOrder(order);
             orders.add(orderDto);
@@ -89,6 +93,12 @@ public class DataRestControllerV1 {
     @GetMapping("orders/clients/{id}")
     public ResponseEntity<Set<OrderDto>> getOrdersByClientId(@PathVariable Long id) {
         Client client = clientService.getById(id);
+
+        if (client == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else if (client.getOrders() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         Set<OrderDto> orders = new HashSet<>();
 
@@ -112,7 +122,7 @@ public class DataRestControllerV1 {
     }
 
     @GetMapping("clients")
-    public ResponseEntity<Set<ClientDto>> getClient() {
+    public ResponseEntity<Set<ClientDto>> getClients() {
         Set<ClientDto> clients = new HashSet<>();
         clientService.getAll().forEach(client -> {
             ClientDto clientDto = ClientDto.fromClient(client);
