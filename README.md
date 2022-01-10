@@ -67,7 +67,7 @@ DATA ENDPOINTS(/api/v1/data/)
 
         {
          "price": ,
-         "name": ""
+         "clientName": ""
         }
 
 - /api/v1/data/orders(GET):
